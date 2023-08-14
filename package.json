@@ -2,6 +2,8 @@
   "name": "vscode-sandbox-extension-example",
   "displayName": "VSCode Sandbox Extension Example",
   "description": "This is just an example",
+  "publisher": "planetsLightningArrester",
+  "author": "planetsLightningArrester",
   "version": "0.0.1",
   "repository": {
     "type": "git",
