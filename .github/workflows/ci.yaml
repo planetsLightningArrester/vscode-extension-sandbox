@@ -46,7 +46,7 @@ jobs:
         run: npm run test:insiders:hidden
 
   check_package:
-    name: Test with vscode insiders
+    name: Check package generation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
