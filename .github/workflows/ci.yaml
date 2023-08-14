@@ -45,7 +45,7 @@ jobs:
       - name: Run tests
         run: npm run test:insiders:hidden
 
-  package:
+  check_package:
     name: Test with vscode insiders
     runs-on: ubuntu-latest
     steps:
@@ -62,3 +62,32 @@ jobs:
 
       - name: Generate package
         run: npm run package
+
+  check_if_is_a_new_release:
+    name: Check if it's a new release
+    runs-on: ubuntu-latest
+    needs: [ test_insiders, test_stable, check_package ]
+    outputs:
+      RELEASE_VERSION: ${{ steps.result.outputs.RELEASE_VERSION }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Check if the commit has a tag associated to it
+        id: result
+        run: |
+          tag="$(git tag --points-at ${{ github.sha }})"
+          if [[ -n "$tag" ]] && [[ "$tag" =~ v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+ ]]; then
+            echo "RELEASE_VERSION=$tag" >> "$GITHUB_OUTPUT"
+          fi
+
+  make_release:
+    name: Create a new release
+    needs: check_if_is_a_new_release
+    if: ${{ needs.check_if_is_a_new_release.outputs.RELEASE_VERSION }}
+    uses: ./.github/workflows/release.yaml
+    secrets: inherit
+    with:
+      release_version: ${{ needs.check_if_is_a_new_release.outputs.RELEASE_VERSION }}
