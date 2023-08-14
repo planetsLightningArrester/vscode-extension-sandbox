@@ -20,7 +20,6 @@
     "onStartupFinished",
     "onCommand:helloWorld"
   ],
-  
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
