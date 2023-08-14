@@ -46,6 +46,7 @@
     "test": "node ./out/__tests__/setupAndRunTests.js",
     "test:hidden": "npm run pretest && xvfb-run -s \"-screen 0, 1024x768x24\" node ./out/__tests__/setupAndRunTests.js",
     "test:insiders": "npm run pretest && node ./out/__tests__/setupAndRunTests.js insiders",
+    "test:insiders:hidden": "npm run pretest && xvfb-run -s \"-screen 0, 1024x768x24\" node ./out/__tests__/setupAndRunTests.js insiders",
     "build:dev": "rm -rf out/*; tsc -p . && resolve-tspaths",
     "pretest": "npm run build:dev && npm run lint",
     "watch:dev": "rm -rf out/*; tsc-watch --onSuccess \"resolve-tspaths\"",
