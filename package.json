@@ -1,0 +1,75 @@
+{
+  "name": "vscode-sandbox-extension-example",
+  "displayName": "VSCode Sandbox Extension Example",
+  "description": "This is just an example",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "www.example.com"
+  },
+  "engines": {
+    "vscode": "^1.81.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:helloWorld"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscode-sandbox-extension-example.helloWorld",
+        "title": "SAMPLE: Hello World"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "Messages",
+        "properties": {
+          "vscode-sandbox-extension-example.promptMessageContent": {
+            "scope": "resource",
+            "type": "string",
+            "default": "Hello World from VSCode Sandbox Extension Example!",
+            "description": "What message should be displayed by the command 'SAMPLE: Hello World'"
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "build": "vite build",
+    "watch": "vite build -w",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/__tests__/setupAndRunTests.js",
+    "test:hidden": "npm run pretest && xvfb-run -s \"-screen 0, 1024x768x24\" node ./out/__tests__/setupAndRunTests.js",
+    "test:insiders": "npm run pretest && node ./out/__tests__/setupAndRunTests.js insiders",
+    "build:dev": "rm -rf out/*; tsc -p . && resolve-tspaths",
+    "pretest": "npm run build:dev && npm run lint",
+    "watch:dev": "rm -rf out/*; tsc-watch --onSuccess \"resolve-tspaths\"",
+    "package": "vsce package",
+    "vscode:prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "20.2.5",
+    "@types/vscode": "^1.81.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
+    "@vscode/test-electron": "^2.3.2",
+    "eslint": "^8.41.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "resolve-tspaths": "^0.8.15",
+    "ts-loader": "^9.4.3",
+    "tsc-watch": "^6.0.4",
+    "typescript": "^5.1.3",
+    "vite": "^4.4.9",
+    "vsce": "^2.15.0",
+    "webpack": "^5.85.0",
+    "webpack-cli": "^5.1.1"
+  }
+}

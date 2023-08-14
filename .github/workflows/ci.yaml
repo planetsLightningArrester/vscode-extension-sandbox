@@ -1,0 +1,28 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_call: 
+  workflow_dispatch: 
+
+jobs:
+  test_stable:
+    name: Test with vscode stable
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: NodeJS setup
+        uses: actions/setup-node@v3
+        with:
+            node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run test:hidden
